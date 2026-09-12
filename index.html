@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ARB Assistant — The Landing at Swift Creek</title>
-<meta name="description" content="Ask questions about the LASC Architectural Review Board guidelines and get help drafting your ARB application." />
+<meta name="description" content="Ask questions about the LASC Architectural Review Board guidelines and get help drafting your ARB application — in any language." />
 <style>
   :root {
     --ink: #22301f;
@@ -79,11 +79,28 @@
     margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;
     border-top: 1px solid var(--line); padding-top: 12px;
   }
+  .langline {
+    margin: 0 0 16px;
+    padding: 13px 0 12px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    font-size: 13.5px; line-height: 2.15;
+    color: var(--pine-dark);
+    text-align: center;
+  }
+  .langline span {
+    display: inline-block;
+    padding: 0 13px;
+    unicode-bidi: plaintext;
+    white-space: nowrap;
+  }
+  .langline span + span { border-left: 1px solid var(--brass-light); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
   .chips button {
     background: var(--card); border: 1px solid var(--line);
     border-radius: 999px; padding: 8px 14px; font-size: 13.5px;
     color: var(--pine-dark); cursor: pointer; font-family: inherit;
+    unicode-bidi: plaintext;
   }
   .chips button:hover { border-color: var(--brass); }
   .row { display: flex; margin: 14px 0; }
@@ -91,6 +108,7 @@
   .bubble {
     max-width: 85%; padding: 12px 16px; font-size: 15px; line-height: 1.55;
     box-shadow: 0 1px 2px rgba(34,48,31,0.05);
+    unicode-bidi: plaintext; text-align: start;
   }
   .bubble p { margin: 0 0 10px; }
   .bubble p:last-child { margin-bottom: 0; }
@@ -107,12 +125,28 @@
   .thinking {
     background: var(--card); border: 1px solid var(--line);
     border-radius: 14px 14px 14px 4px;
-    padding: 12px 16px; font-size: 14px; color: var(--muted); font-style: italic;
+    padding: 15px 18px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .thinking i {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--muted); display: block;
+    animation: pulse 1.4s infinite ease-in-out both;
+  }
+  .thinking i:nth-child(2) { animation-delay: 0.18s; }
+  .thinking i:nth-child(3) { animation-delay: 0.36s; }
+  @keyframes pulse {
+    0%, 80%, 100% { opacity: 0.22; }
+    40% { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .thinking i { animation: none; opacity: 0.5; }
   }
   .error-box {
     margin: 10px 0; padding: 10px 14px;
     background: #fbeeea; border: 1px solid #e3b8ab; border-radius: 8px;
     font-size: 13.5px; color: #7a3b28;
+    unicode-bidi: plaintext; text-align: start;
   }
   footer {
     border-top: 1px solid var(--line);
@@ -125,6 +159,7 @@
     border: 1px solid var(--line); border-radius: 8px;
     padding: 10px 12px; font-size: 15px; font-family: inherit;
     color: var(--ink); background: var(--paper);
+    unicode-bidi: plaintext; text-align: start;
   }
   .composer textarea:focus { outline: 2px solid var(--pine); outline-offset: -1px; }
   .composer button {
@@ -139,6 +174,8 @@
   @media (max-width: 480px) {
     .bubble { max-width: 92%; }
     .welcome { padding: 20px 18px 16px; }
+    .langline { font-size: 12.5px; line-height: 2.05; }
+    .langline span { padding: 0 10px; }
   }
 </style>
 </head>
@@ -157,19 +194,23 @@
   <div class="container" id="chat">
     <div class="welcome" id="welcome">
       <h1>Planning a change to your home or yard?</h1>
+      <p class="langline">
+        <span lang="en">Ask in any language</span><span lang="es">Pregunte en cualquier idioma</span><span lang="vi">Hỏi bằng bất kỳ ngôn ngữ nào</span><span lang="zh">用任何语言提问</span><span lang="ko">어떤 언어로든 질문하세요</span><span lang="ar" dir="rtl">اسأل بأي لغة</span><span lang="ru">Задайте вопрос на любом языке</span><span lang="hi">किसी भी भाषा में पूछें</span><span lang="pt">Faça sua pergunta em qualquer idioma</span><span lang="tl">Magtanong sa kahit anong wika</span><span lang="fr">Posez votre question dans n'importe quelle langue</span>
+      </p>
       <p>I can help you three ways:</p>
       <ul>
         <li><strong>Answer questions</strong> about the ARB Standards &amp; Design Guidelines — fences, sheds, decks, pools, lighting, landscaping, and more, with section references.</li>
         <li><strong>Draft your application</strong> — I'll ask for the details the ARB needs and produce text you can paste into the official form, plus a checklist of required attachments.</li>
         <li><strong>Give a preliminary read</strong> on whether your project appears consistent with the written guidelines before you submit.</li>
       </ul>
-      <p class="disclaimer">This assistant is informational only and covers ARB topics exclusively. Nothing here is an approval or denial — only the ARB issues decisions, in writing, after reviewing a complete application (§2.7).</p>
+      <p class="disclaimer">This assistant is informational only and covers ARB topics exclusively. Nothing here is an approval or denial — only the ARB issues decisions, in writing, after reviewing a complete application (§2.7). The Guidelines are written in English; replies in other languages are unofficial translations provided for convenience, and the English text governs.</p>
     </div>
     <div class="chips" id="chips">
       <button data-q="Can I put a fence in my yard?">Can I put a fence in my yard?</button>
       <button data-q="I want to build a shed — what are the rules?">I want to build a shed — what are the rules?</button>
       <button data-q="Do I need approval to re-stain my deck the same color?">Do I need approval to re-stain my deck the same color?</button>
       <button data-q="Help me draft my application">Help me draft my application</button>
+      <button lang="es" data-q="¿Puedo poner una cerca en mi jardín?">¿Puedo poner una cerca en mi jardín?</button>
     </div>
   </div>
 </main>
@@ -231,6 +272,9 @@
     row.className = "row " + role;
     const bubble = document.createElement("div");
     bubble.className = "bubble";
+    // dir="auto" makes each message pick its own direction from its first
+    // strong character, so Arabic/Hebrew/Farsi/Urdu read right-to-left.
+    bubble.setAttribute("dir", "auto");
     if (role === "user") {
       bubble.innerHTML = "<p>" + esc(text) + "</p>";
     } else {
@@ -259,9 +303,12 @@
     addBubble("user", text);
     setBusy(true);
 
+    // Language-neutral waiting indicator — no English text to strand a
+    // homeowner who is writing in another language.
     const thinkingRow = document.createElement("div");
     thinkingRow.className = "row assistant";
-    thinkingRow.innerHTML = '<div class="thinking">Checking the guidelines…</div>';
+    thinkingRow.innerHTML =
+      '<div class="thinking" role="status" aria-label="Working"><i></i><i></i><i></i></div>';
     chat.appendChild(thinkingRow);
     scrollEl.scrollTop = scrollEl.scrollHeight;
 
@@ -284,6 +331,7 @@
       input.value = text;
       const box = document.createElement("div");
       box.className = "error-box";
+      box.setAttribute("dir", "auto");
       box.textContent = (err && err.message && !/^No reply$/.test(err.message))
         ? err.message
         : "Something went wrong reaching the assistant. Try sending your message again.";
